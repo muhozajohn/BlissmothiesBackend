@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes";
+import AlbumRoutes from "./routes/GalleryRoutes";
 
 const app = express();
 dotenv.config();
@@ -16,17 +17,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
 
-app.use("/api/blissmothies/users", userRoutes);
-
-
+app.use("/blissmothies/users", userRoutes);
+app.use("/blissmothies/album", AlbumRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
     status: "success",
-    author:"Muhoza",
+    author: "Muhoza",
     message: "Welcome to the Blissmothies API!",
   });
 });
-
 
 export default app;
