@@ -84,7 +84,7 @@ export const delUser = async (req, res) => {
 // Update user
 export const upuser = async (req, res) => {
   const { id } = req.params;
-  const { fullName, email, userProfile, gender, password } = req.body;
+  const { fullName, email, userProfile, gender, password, role } = req.body;
   try {
     const getId = await User.findById(id);
     if (!getId) {
@@ -102,6 +102,7 @@ export const upuser = async (req, res) => {
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
       gender,
       password: hashedPass,
+      role,
     });
 
     return res.status(201).json({
@@ -115,7 +116,6 @@ export const upuser = async (req, res) => {
     });
   }
 };
-
 
 // UserLogin
 
