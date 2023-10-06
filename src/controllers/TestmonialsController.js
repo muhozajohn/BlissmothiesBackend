@@ -4,16 +4,13 @@ import { uploadToCloud } from "../helper/cloud";
 // Leave Your Comment peacefull
 
 export const createTestmoniols = async (req, res) => {
-  const { profile, name, title, comment } = req.body;
+  const { profile, name, comment } = req.body;
   try {
     let result;
     if (req.file) result = await uploadToCloud(req.file, res);
     const MakeIt = await Testimoniols.create({
-      profile:
-        result?.secure_url ||
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      profile: req.User.userProfile,
       name: req.User.fullName,
-      title,
       comment,
     });
 

@@ -3,9 +3,11 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
+
 import userRoutes from "./routes/userRoutes";
 import AlbumRoutes from "./routes/GalleryRoutes";
 import TestRoutes from "./routes/TestmonialRoutes";
+import contactRoutes from "./routes/ContactRoutes";
 
 const app = express();
 dotenv.config();
@@ -21,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/blissmothies/users", userRoutes);
 app.use("/blissmothies/album", AlbumRoutes);
 app.use("/blissmothies/Testmoniols", TestRoutes);
+app.use("/blissmothies/contact", contactRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
