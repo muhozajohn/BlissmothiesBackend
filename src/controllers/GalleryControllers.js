@@ -23,42 +23,6 @@ export const createAlbum = async (req, res) => {
   }
 };
 
-// userLogin
-
-export const login = async (req, res) => {
-  try {
-    const userLogin = await users.findOne({
-      email: req.body.email,
-    });
-    if (!userLogin) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
-
-    const isMatch = await bcrypt.compare(req.body.password, userLogin.password);
-    if (!isMatch) {
-      return res.status(404).json({
-        message: "Password inorect",
-      });
-    }
-    const token = await Jwt.sign(
-      { id: userLogin._id },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.EXPIRE_DATE }
-    );
-    res.status(200).json({
-      message: "logedin success",
-      users: userLogin,
-      token: token,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Fail to retrive data",
-      error: error.message,
-    });
-  }
-};
 
 
 // Read All Album
