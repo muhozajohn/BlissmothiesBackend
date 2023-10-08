@@ -4,6 +4,7 @@ import {
   delMessage,
   getMessage,
   getSIngleMessage,
+  replyMessage,
   upMessage,
 } from "../controllers/ContactControllers";
 import fileUpload from "../helper/multer";
@@ -14,5 +15,6 @@ contactRoutes.get("/read", getMessage);
 contactRoutes.get("/read/:id", getSIngleMessage);
 contactRoutes.delete("/delete/:id", delMessage);
 contactRoutes.put("/update/:id", upMessage);
+contactRoutes.put("/reply/:id", replyMessage);
 
 export default contactRoutes;
