@@ -133,7 +133,7 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(req.body.password, userLogin.password);
     if (!isMatch) {
       return res.status(404).json({
-        message: "Password inorect",
+        message: "Password incorect",
       });
     }
     const token = await Jwt.sign(

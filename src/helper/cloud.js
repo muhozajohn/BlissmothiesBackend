@@ -19,5 +19,3 @@ export const uploadToCloud = async (file, res) => {
     return res.status(500).send(error);
   }
 };
-
-
