@@ -10,7 +10,7 @@ export const sendMail = (emailTemplate) => {
     },
   });
   let mailOptions = {
-    from: "eglespiritacademy@gmail.com",
+    from: "muhozajohn250@gmail.com",
     to: emailTo,
     subject,
     // text: "Congratulations you have successfully registered",

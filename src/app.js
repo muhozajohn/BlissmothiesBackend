@@ -8,6 +8,9 @@ import userRoutes from "./routes/userRoutes";
 import AlbumRoutes from "./routes/GalleryRoutes";
 import TestRoutes from "./routes/TestmonialRoutes";
 import contactRoutes from "./routes/ContactRoutes";
+import menuRoutes from "./routes/MenuRoutes";
+import serviceRoutes from "./routes/ServiceRoutes";
+import eventRoutes from "./routes/eventRoutes";
 
 const app = express();
 dotenv.config();
@@ -24,6 +27,9 @@ app.use("/blissmothies/users", userRoutes);
 app.use("/blissmothies/album", AlbumRoutes);
 app.use("/blissmothies/Testmoniols", TestRoutes);
 app.use("/blissmothies/contact", contactRoutes);
+app.use("/blissmothies/menu", menuRoutes);
+app.use("/blissmothies/services", serviceRoutes);
+app.use("/blissmothies/event", eventRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
