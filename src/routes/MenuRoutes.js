@@ -11,9 +11,14 @@ import {
 
 const menuRoutes = express.Router();
 menuRoutes.post("/create", Authorization, fileUpload.single("image"), makemenu);
-menuRoutes.get("/read",  getAllmenu);
+menuRoutes.get("/read", getAllmenu);
 menuRoutes.get("/read/:id", getOne);
 menuRoutes.delete("/delete/:id", Authorization, removeMenu);
-menuRoutes.put("/update/:id", Authorization,fileUpload.single("image"), updateMenu);
+menuRoutes.put(
+  "/update/:id",
+  Authorization,
+  fileUpload.single("image"),
+  updateMenu
+);
 
 export default menuRoutes;
