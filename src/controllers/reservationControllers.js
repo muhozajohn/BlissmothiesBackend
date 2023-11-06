@@ -1,4 +1,4 @@
-import request from "../models/reservationModules";
+import request from "../models/reservationModels";
 // create
 
 export const makeRequest = async (req, res) => {
@@ -30,7 +30,7 @@ export const RemoveRequest = async (req, res) => {
     return res.status(200).json({
       status: "200",
       message: " Job Well Done",
-      data: delId
+      data: delId,
     });
   } catch (error) {
     return res.status(500).json({

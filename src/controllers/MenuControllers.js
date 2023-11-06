@@ -1,4 +1,4 @@
-import menu from "../models/MenuModules";
+import menu from "../models/MenuModels";
 import { uploadToCloud } from "../helper/cloud";
 
 // creating menu

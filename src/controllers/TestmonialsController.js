@@ -37,7 +37,7 @@ export const uptest = async (req, res) => {
 
     let result;
     if (req.file) result = await uploadToCloud(req.file, res);
-    const MakeIt = await Testimoniols.findByIdAndUpdate(id,{
+    const MakeIt = await Testimoniols.findByIdAndUpdate(id, {
       profile:
         result?.secure_url ||
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",

@@ -1,4 +1,4 @@
-import event from "../models/eventModules";
+import event from "../models/eventModels";
 import { uploadToCloud } from "../helper/cloud";
 
 // creating event

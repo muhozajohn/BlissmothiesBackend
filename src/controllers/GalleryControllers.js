@@ -23,8 +23,6 @@ export const createAlbum = async (req, res) => {
   }
 };
 
-
-
 // Read All Album
 
 export const getAlbum = async (req, res) => {

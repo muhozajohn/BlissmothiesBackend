@@ -1,4 +1,4 @@
-import contactModule from "../models/contactModules";
+import contactModule from "../models/contactModels";
 import sendMail from "../helper/sendMail";
 export const createMessage = async (req, res) => {
   try {
