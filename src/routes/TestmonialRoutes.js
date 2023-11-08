@@ -22,8 +22,8 @@ TestRoutes.put(
   createTestmoniols
 );
 
-TestRoutes.get("/read",Authorization, getAllTestmoniols);
-TestRoutes.get("/read/:id",Authorization, getSingle);
-TestRoutes.delete("/delete",Authorization, delTest);
+TestRoutes.get("/read", getAllTestmoniols);
+TestRoutes.get("/read/:id", Authorization, getSingle);
+TestRoutes.delete("/delete", Authorization, delTest);
 
 export default TestRoutes;

@@ -16,8 +16,8 @@ eventRoutes.post(
   fileUpload.single("image"),
   makeevent
 );
-eventRoutes.get("/read", Authorization, getAllevent);
-eventRoutes.get("/read/:id", Authorization, getOne);
+eventRoutes.get("/read", getAllevent);
+eventRoutes.get("/read/:id", getOne);
 eventRoutes.delete("/delete/:id", Authorization, removeevent);
 eventRoutes.put(
   "/update/:id",
