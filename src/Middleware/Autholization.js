@@ -12,30 +12,42 @@ const Authorization = async (req, res, next) => {
     }
 
     if (!token) {
-      res.status(401).json({
+      return res.status(401).json({
         status: "Failed",
-        message: "You are not logged in please login",
+        message: "You are not logged in, please login",
       });
     }
 
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-    const logedUser = await User.findById(decoded.id);
+    const loggedInUser = await User.findById(decoded.id);
 
-    if (!logedUser) {
-      res.status(403).json({
+    if (!loggedInUser) {
+      return res.status(403).json({
         status: "Failed",
-        message: "Token has Expired Please login Again",
+        message: "Token has expired, please login again",
       });
     }
 
-    if (logedUser.role !== "admin") {
-      res.status(404).json({
-        status: "Failed",
-        message: "Only Loged User can do this operation",
-      });
-    } else {
-      req.User = logedUser;
+    req.User = loggedInUser;
+
+    if (loggedInUser.role === "admin") {
+      // Admin has access to all routes
       next();
+    } else if (loggedInUser.role === "user") {
+      // Regular user has limited access
+      if (req.originalUrl.startsWith("/Dashboard")) {
+        return res.status(403).json({
+          status: "Failed",
+          message: "Only admin can access this route",
+        });
+      }
+      next();
+    } else {
+      // Handle other roles if needed
+      return res.status(403).json({
+        status: "Failed",
+        message: "Unauthorized role",
+      });
     }
   } catch (error) {
     res.status(500).json({
