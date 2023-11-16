@@ -1,5 +1,5 @@
 import Authorization from "../Middleware/Autholization";
-import { addToCart } from "../controllers/CartControllers";
+import { addToCart, getCart } from "../controllers/CartControllers";
 import fileUpload from "../helper/multer";
 import express from "express";
 
@@ -10,4 +10,5 @@ cartRoutes.post(
   fileUpload.single("files"),
   addToCart
 );
+cartRoutes.get("/Readcart", getCart);
 export default cartRoutes;

@@ -5,9 +5,10 @@ export const makeRequest = async (req, res) => {
   try {
     const { DateArrival, DateDeparture, peaple } = req.body;
     const make = await request.create({ DateArrival, DateDeparture, peaple });
-    return res.status(200).json({
-      status: "200",
+    return res.status(201).json({
+      status: "201",
       message: "Request Sent",
+      data: make
     });
   } catch (error) {
     return res.status(500).json({
