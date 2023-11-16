@@ -18,7 +18,7 @@ const Authorization = async (req, res, next) => {
       });
     }
 
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const loggedInUser = await User.findById(decoded.id);
 
     if (!loggedInUser) {
