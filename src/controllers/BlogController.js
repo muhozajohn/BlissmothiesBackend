@@ -1,7 +1,6 @@
 import blog from "../models/BlogModels";
 import { uploadToCloud } from "../helper/cloud";
 
-
 // create Blog
 
 export const createPost = async (req, res) => {
@@ -55,14 +54,14 @@ export const createPost = async (req, res) => {
 };
 
 // get All Blog
-export const getBlog = async (req,res) => {
+export const getBlog = async (req, res) => {
   try {
     const Allblog = await blog
       .find()
-        .populate({
-          path: "comments",
-          populate: { path: "author", select: "fullName userProfile" },
-        })
+      .populate({
+        path: "comments",
+        populate: { path: "author", select: "fullName userProfile" },
+      })
       .populate({
         path: "author",
         select: "fullName userProfile",
@@ -81,15 +80,60 @@ export const getBlog = async (req,res) => {
   }
 };
 // getOne blog
-export const getOne = async ()=>{
+export const getOne = async (req, res) => {
   try {
-    
-    
+    const { id } = req.params;
+    const finDId = await blog
+      .findById(id)
+      .populate({
+        path: "comments",
+        populate: { path: "author", select: "fullName userProfile" },
+      })
+      .populate({
+        path: "author",
+        select: "fullName userProfile",
+      });
+    if (!finDId) {
+      return res.status(404).json({
+        status: "404",
+        message: "Post Not Found",
+      });
+    }
+    return res.status(200).json({
+      status: "200",
+      message: "Post Retrieved Succefully",
+      data: finDId,
+    });
   } catch (error) {
-       return res.status(500).json({
-         status: "500",
-         message: "Failed to Read Blog",
-         error: error.message,
-       });
+    return res.status(500).json({
+      status: "500",
+      message: "Failed to Read Blog",
+      error: error.message,
+    });
   }
-}
+};
+
+// delete
+export const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const finDId = await blog.findById(id);
+    if (!finDId) {
+      return res.status(404).json({
+        status: "404",
+        message: "Post Not Found",
+      });
+    }
+    await blog.findByIdAndDelete(id);
+    return res.status(200).json({
+      status: "200",
+      message: "Post Deleted Succefully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "500",
+      message: "Failed to Delete Blog",
+      error: error.message,
+    });
+  }
+};
