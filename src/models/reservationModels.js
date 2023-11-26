@@ -3,14 +3,27 @@ import mongoose from "mongoose";
 const bookTableSchema = new mongoose.Schema({
   DateArrival: {
     type: String,
-    require: true,
+    require: false,
   },
   DateDeparture: {
     type: String,
-    require: true,
+    require: false,
   },
   peaple: {
     type: String,
+    require: false,
+  },
+  time: {
+    type: String,
+    require: false,
+  },
+  tel: {
+    type: String,
+    require: false,
+  },
+  requestOwner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     require: true,
   },
 });
