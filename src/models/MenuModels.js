@@ -20,6 +20,10 @@ const menuSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  owner: {
+    type: String,
+    require: true,
+  },
 });
 
 const menu = mongoose.model("menu", menuSchema);
