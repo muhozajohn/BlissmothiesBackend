@@ -6,8 +6,6 @@ import { uploadToCloud } from "../helper/cloud";
 export const createTestmoniols = async (req, res) => {
   const { profile, name, comment } = req.body;
   try {
-    let result;
-    if (req.file) result = await uploadToCloud(req.file, res);
     const MakeIt = await Testimoniols.create({
       profile: req.User.userProfile,
       name: req.User.fullName,
