@@ -14,6 +14,6 @@ cartRoutes.post(
   fileUpload.single("files"),
   addToCart
 );
-cartRoutes.get("/Readcart",Authorization, getCart);
+cartRoutes.get("/Readcart", Authorization, getCart);
 cartRoutes.delete("/delete/:id", Authorization, deleteToCart);
 export default cartRoutes;
