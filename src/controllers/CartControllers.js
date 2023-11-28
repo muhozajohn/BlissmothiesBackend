@@ -50,3 +50,27 @@ export const getCart = async (req, res) => {
     });
   }
 };
+
+// delete
+export const deleteToCart = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const productId = await cart.findById(id);
+    if (!productId) {
+      return res.status(404).json({
+        status: "404",
+        message: "Product Id Not Found",
+      });
+    }
+    await cart.findByIdAndDelete(productId);
+    return res.status(200).json({
+      status: "200",
+      message: "Well Cart Deleted",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "500",
+      message: "Failed To Deleted in Cart",
+    });
+  }
+};

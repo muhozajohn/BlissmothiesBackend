@@ -1,5 +1,9 @@
 import Authorization from "../Middleware/Autholization";
-import { addToCart, getCart } from "../controllers/CartControllers";
+import {
+  addToCart,
+  deleteToCart,
+  getCart,
+} from "../controllers/CartControllers";
 import fileUpload from "../helper/multer";
 import express from "express";
 
@@ -11,4 +15,5 @@ cartRoutes.post(
   addToCart
 );
 cartRoutes.get("/Readcart", getCart);
+cartRoutes.delete("/delete/:id", Authorization, deleteToCart);
 export default cartRoutes;
