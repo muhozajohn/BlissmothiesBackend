@@ -34,37 +34,10 @@ export const addToCart = async (req, res) => {
 // getAll Cart
 export const getCart = async (req, res) => {
   try {
-    const getCarts = await cart.aggregate([
-      {
-        $match: {
-          cartOwner: req.User._id, // Filter by cart owner
-        },
-      },
-      {
-        $lookup: {
-          from: "menu",
-          localField: "productId",
-          foreignField: "_id",
-          as: "orderedCart",
-        },
-      },
-      {
-        $unwind: "$orderedCart",
-      },
-      {
-        $project: {
-          // Project only the fields you want to return title, image, content, price, category
-          _id: 0,
-          "orderedCart.title": 1,
-          "orderedCart.image": 1,
-          "orderedCart.content": 1,
-          "orderedCart.price": 1,
-          "orderedCart.price": 1,
-          // Add more fields as needed
-        },
-      },
-    ]);
-
+    const getCarts = await cart
+      .find()
+      .populate("cartOwner", "fullName email")
+      .populate("productId", "title image price");
     return res.status(200).json({
       status: "200",
       message: "Cart Retrieved",
@@ -77,4 +50,3 @@ export const getCart = async (req, res) => {
     });
   }
 };
-
