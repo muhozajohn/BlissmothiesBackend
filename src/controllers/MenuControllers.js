@@ -10,6 +10,13 @@ export const makemenu = async (req, res) => {
     const existingTitle = await menu.findOne({
       title: req.body.title,
     });
+
+    if (existingTitle) {
+      return res.status(403).json({
+        status: "403",
+        message: "Title Already Exist Try Again",
+      });
+    }
     let result;
     if (req.file) result = await uploadToCloud(req.file, res);
     const makeMenu = await menu.create({
@@ -119,16 +126,6 @@ export const updateMenu = async (req, res) => {
         message: "Menu Id Not Found",
       });
     }
-    const existingTitle = await menu.findOne({
-      title: req.body.title,
-    });
-
-    if (existingTitle) {
-      return res.status(403).json({
-        status: "403",
-        message: "Title Already Exist Try Again",
-      });
-    }
 
     let result;
     if (req.file) result = await uploadToCloud(req.file, res);
@@ -140,6 +137,7 @@ export const updateMenu = async (req, res) => {
       content,
       price,
       category,
+      owner: req.User.fullName,
     });
 
     return res.status(201).json({
