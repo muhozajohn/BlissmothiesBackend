@@ -23,7 +23,7 @@ TestRoutes.put(
 );
 
 TestRoutes.get("/read", getAllTestmoniols);
-TestRoutes.get("/read/:id", Authorization, getSingle);
-TestRoutes.delete("/delete", Authorization, delTest);
+TestRoutes.get("/read/:id", getSingle);
+TestRoutes.delete("/delete/:id", Authorization, delTest);
 
 export default TestRoutes;
