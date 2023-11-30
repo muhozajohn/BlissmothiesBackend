@@ -13,6 +13,14 @@ const CartSchema = new mongoose.Schema({
       require: true,
     },
   ],
+  quantity: {
+    type: Number,
+    default: 1,
+  },
+  totalPrice: {
+    type: Number,
+    default: 1,
+  },
 });
 
 const cart = mongoose.model("carts", CartSchema);
