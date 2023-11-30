@@ -6,8 +6,15 @@ import {
   deletePost,
   getBlog,
   getOne,
+  updatePost,
 } from "../controllers/BlogController";
-import { makeComment } from "../controllers/commentController";
+import {
+  deleteComment,
+  getComment,
+  makeComment,
+  getOneComment,
+  updateComment,
+} from "../controllers/commentController";
 const blogRoutes = express.Router();
 
 blogRoutes.post(
@@ -22,8 +29,23 @@ blogRoutes.post(
   fileUpload.single("files"),
   makeComment
 );
+blogRoutes.put(
+  "/comment/:id",
+  Authorization,
+  fileUpload.single("files"),
+  updateComment
+);
+blogRoutes.put(
+  "/update/:id",
+  Authorization,
+  fileUpload.single("files"),
+  updatePost
+);
 blogRoutes.get("/read", getBlog);
+blogRoutes.get("/readComment", getComment);
 blogRoutes.get("/read/:id", getOne);
+blogRoutes.get("/readComment/:id", getOneComment);
 blogRoutes.delete("/delete/:id", deletePost);
+blogRoutes.delete("/deleteComment/:id", deleteComment);
 
 export default blogRoutes;

@@ -137,3 +137,42 @@ export const deletePost = async (req, res) => {
     });
   }
 };
+
+// update Blog
+export const updatePost = async (req, res) => {
+  try {
+    const { author, image, title, category, ingridents, content, comments } =
+      req.body;
+    const { User } = req;
+    const { id } = req.params;
+    const finDId = await blog.findById(id);
+    if (!finDId) {
+      return res.status(404).json({
+        status: "404",
+        message: "Post Not Found",
+      });
+    }
+    let result;
+    if (req.file) result = await uploadToCloud(req.file, res);
+    const makeBog = await blog.findByIdAndUpdate(finDId, {
+      author: User._id,
+      image: result?.secure_url,
+      title,
+      category,
+      ingridents,
+      content,
+      comments,
+    });
+    return res.status(201).json({
+      status: "201",
+      message: "Updated Well",
+      data: makeBog,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "500",
+      message: "Failed to Update Blog",
+      error: error.message,
+    });
+  }
+};
