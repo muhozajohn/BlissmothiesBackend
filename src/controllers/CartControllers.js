@@ -60,12 +60,22 @@ export const addToCart = async (req, res) => {
 export const getCart = async (req, res) => {
   try {
     const { User } = req;
-    const getCarts = await cart
-      .find({
-        cartOwner: User._id,
-      })
-      .populate("cartOwner", "fullName email")
-      .populate("productId", "title image price");
+    const isAdmin = User.admin;
+    let getCarts;
+    if (isAdmin) {
+      getCarts = await cart
+        .find({})
+        .populate("cartOwner", "fullName email")
+        .populate("productId", "title image price");
+    } else {
+      getCarts = await cart
+        .find({
+          cartOwner: User._id,
+        })
+        .populate("cartOwner", "fullName email")
+        .populate("productId", "title image price");
+    }
+
     return res.status(200).json({
       status: "200",
       message: "Cart Retrieved",
