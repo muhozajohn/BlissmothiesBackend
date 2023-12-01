@@ -60,34 +60,40 @@ export const addToCart = async (req, res) => {
 export const getCart = async (req, res) => {
   try {
     const { User } = req;
-    const isAdmin = User.admin;
-    let getCarts;
-    if (isAdmin) {
-      getCarts = await cart
-        .find({})
+
+    if (User.role === "admin") {
+      const getAllCarts = await cart
+        .find()
         .populate("cartOwner", "fullName email")
         .populate("productId", "title image price");
-    } else {
-      getCarts = await cart
-        .find({
-          cartOwner: User._id,
-        })
-        .populate("cartOwner", "fullName email")
-        .populate("productId", "title image price");
+
+      return res.status(200).json({
+        status: "200",
+        message: "All Carts Retrieved",
+        data: getAllCarts,
+      });
     }
+
+    const getUserCarts = await cart
+      .find({
+        cartOwner: User._id,
+      })
+      .populate("cartOwner", "fullName email")
+      .populate("productId", "title image price");
 
     return res.status(200).json({
       status: "200",
-      message: "Cart Retrieved",
-      data: getCarts,
+      message: "User's Carts Retrieved",
+      data: getUserCarts,
     });
   } catch (error) {
     return res.status(500).json({
       status: "500",
-      message: "Failed To Retrieve item in Cart",
+      message: "Failed to retrieve carts",
     });
   }
 };
+
 
 // delete
 export const deleteToCart = async (req, res) => {
