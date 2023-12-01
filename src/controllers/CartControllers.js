@@ -65,7 +65,7 @@ export const getCart = async (req, res) => {
       const getAllCarts = await cart
         .find()
         .populate("cartOwner", "fullName email")
-        .populate("productId", "title image price");
+        .populate("productId", "title image price owner");
 
       return res.status(200).json({
         status: "200",
@@ -93,7 +93,6 @@ export const getCart = async (req, res) => {
     });
   }
 };
-
 
 // delete
 export const deleteToCart = async (req, res) => {
