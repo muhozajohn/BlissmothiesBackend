@@ -97,9 +97,7 @@ export const upuser = async (req, res) => {
     const updated = await User.findByIdAndUpdate(id, {
       fullName,
       email,
-      userProfile:
-        result?.secure_url ||
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      userProfile: result?.secure_url || getId.userProfile,
       gender,
       password: hashedPass,
       role,

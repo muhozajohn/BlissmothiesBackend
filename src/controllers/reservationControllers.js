@@ -4,7 +4,7 @@ import request from "../models/reservationModels";
 
 export const makeRequest = async (req, res) => {
   try {
-    const { DateArrival, DateDeparture, peaple, requestOwner, time, tel } =
+    const { DateArrival, DateDeparture, peaple, time, tel } =
       req.body;
     const make = await request.create({
       DateArrival,

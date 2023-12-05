@@ -5,7 +5,7 @@ import { uploadToCloud } from "../helper/cloud";
 
 export const makemenu = async (req, res) => {
   try {
-    const { title, image, content, price, category } = req.body;
+    const { title, Subtitle, content, price, category } = req.body;
 
     const existingTitle = await menu.findOne({
       title: req.body.title,
@@ -21,6 +21,7 @@ export const makemenu = async (req, res) => {
     if (req.file) result = await uploadToCloud(req.file, res);
     const makeMenu = await menu.create({
       title,
+      Subtitle,
       image:
         result?.secure_url ||
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
@@ -117,10 +118,10 @@ export const removeMenu = async (req, res) => {
 // update
 export const updateMenu = async (req, res) => {
   try {
-    const { title, image, content, price, category } = req.body;
+    const { title, Subtitle, content, price, category } = req.body;
     const { id } = req.params;
-    const getId = await menu.findById(id);
-    if (!getId) {
+    const menuExist = await menu.findById(id);
+    if (!menuExist) {
       return res.status(404).json({
         status: "404",
         message: "Menu Id Not Found",
@@ -131,9 +132,8 @@ export const updateMenu = async (req, res) => {
     if (req.file) result = await uploadToCloud(req.file, res);
     await menu.findByIdAndUpdate(id, {
       title,
-      image:
-        result?.secure_url ||
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      Subtitle,
+      image: result?.secure_url || menuExist.image,
       content,
       price,
       category,

@@ -5,7 +5,7 @@ import { uploadToCloud } from "../helper/cloud";
 
 export const makeevent = async (req, res) => {
   try {
-    const { title, image, content, price } = req.body;
+    const { title, content, price } = req.body;
 
     const existingTitle = await event.findOne({
       title: req.body.title,
@@ -116,7 +116,7 @@ export const removeevent = async (req, res) => {
 // update
 export const updateevent = async (req, res) => {
   try {
-    const { title, image, content, price } = req.body;
+    const { title, content, price } = req.body;
     const { id } = req.params;
     const getId = await event.findById(id);
     if (!getId) {
@@ -140,9 +140,7 @@ export const updateevent = async (req, res) => {
     if (req.file) result = await uploadToCloud(req.file, res);
     await event.findByIdAndUpdate(id, {
       title,
-      image:
-        result?.secure_url ||
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+      image: result?.secure_url || getId.image,
       content,
       price,
     });
