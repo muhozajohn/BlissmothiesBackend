@@ -156,7 +156,7 @@ export const updatePost = async (req, res) => {
     if (req.file) result = await uploadToCloud(req.file, res);
     const makeBog = await blog.findByIdAndUpdate(finDId, {
       author: User._id,
-      image: result?.secure_url,
+      image: result?.secure_url || finDId.image,
       title,
       category,
       ingridents,

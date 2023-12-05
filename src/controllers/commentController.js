@@ -117,7 +117,7 @@ export const updateComment = async (req, res) => {
         message: "comment id Not Found",
       });
     }
-    const newComment = await comment.findByIdAndUpdate(coId, {
+    await comment.findByIdAndUpdate(coId, {
       postComment,
       author: User._id,
     });

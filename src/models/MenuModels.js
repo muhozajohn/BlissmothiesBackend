@@ -5,6 +5,10 @@ const menuSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    Subtitle: {
+      type: String,
+      require: true,
+    },
     image: {
       type: String,
       require: false,
