@@ -1,5 +1,5 @@
 import request from "../models/reservationModels";
-import sendMail from "../helper/sendMail"; 
+import sendMail from "../helper/sendMail";
 export const makeRequest = async (req, res) => {
   try {
     const { DateArrival, DateDeparture, peaple, time, tel } = req.body;
@@ -24,7 +24,9 @@ export const makeRequest = async (req, res) => {
                 <p>Reservation Details:</p>
                 <ul>
                   <li>Date Arrival: ${DateArrival}</li>
-                  <li>Date Departure: ${DateDeparture}</li>
+                  <li>Date Departure: ${
+                    DateDeparture ? DateDeparture : DateArrival
+                  }</li>
                   <li>Number of People: ${peaple}</li>
                   <li>Time: ${time}</li>
                 </ul>
