@@ -15,10 +15,10 @@ export const createMessage = async (req, res) => {
       emailTo: email,
       subject: subject,
       message: `<h1> Dear ${name}, </h1> <br/>   We're pleased to inform you that we've received well your feedback. 
-       Thank you for reaching out to BlissMothies! We'll be back soon to satisfy your cravings. 🍔🍕🍱 <br/> <br/>  
+       Thank you for reaching out to Keller's Blissful Smoothies! We'll be back soon to satisfy your cravings. 🍔🍕🍱 <br/> <br/>  
       <p> Best regards,</p>
       <p>Kwizera Emmanuel</p>
-       <p>BlissMothies Ceo, Keller </p><br/> `,
+       <p>Blissful Smoothies Ceo, Keller </p><br/> `,
     };
 
     sendMail(emailTemplate);

@@ -1,19 +1,41 @@
-import path from "path";
 import request from "../models/reservationModels";
-// create
-
+import sendMail from "../helper/sendMail"; 
 export const makeRequest = async (req, res) => {
   try {
-    const { DateArrival, DateDeparture, peaple, time, tel } =
-      req.body;
+    const { DateArrival, DateDeparture, peaple, time, tel } = req.body;
+    const { User } = req;
+    const userEmail = User.email;
+    const name = User.fullName;
     const make = await request.create({
       DateArrival,
       DateDeparture,
       peaple,
       time,
       tel,
-      requestOwner: req.User._id,
+      requestOwner: User._id,
     });
+
+    // Customize the email message
+    const emailTemplate = {
+      emailTo: userEmail,
+      subject: "New Reservation Request",
+      message: `<h1>Dear ${name},</h1>
+                <p>Thank you for choosing Blissful Smoothies! Your reservation request has been received.</p>
+                <p>Reservation Details:</p>
+                <ul>
+                  <li>Date Arrival: ${DateArrival}</li>
+                  <li>Date Departure: ${DateDeparture}</li>
+                  <li>Number of People: ${peaple}</li>
+                  <li>Time: ${time}</li>
+                </ul>
+                <p>We appreciate your business and look forward to serving you!</p>
+                <p>Best regards,</p>
+                <p>Kwizera Emmanuel</p>
+                <p>Blissful Smoothies CEO, Keller</p>`,
+    };
+
+    // Send the customized email
+    sendMail(emailTemplate);
     return res.status(201).json({
       status: "201",
       message: "Request Sent",
@@ -23,9 +45,11 @@ export const makeRequest = async (req, res) => {
     return res.status(500).json({
       status: "500",
       message: "Failed to make Request",
+      error: error.message,
     });
   }
 };
+
 export const RemoveRequest = async (req, res) => {
   try {
     const { id } = req.params;

@@ -1,9 +1,10 @@
 import User from "../models/usersModel";
 import { uploadToCloud } from "../helper/cloud";
 import Jwt from "jsonwebtoken";
+import sendMail from "../helper/sendMail";
 import bcrypt, { genSalt, hash } from "bcrypt";
 export const createUser = async (req, res) => {
-  let { fullName, email, userProfile, gender, password, role } = req.body;
+  let { fullName, email, gender, password, role } = req.body;
 
   try {
     const userEmail = await User.findOne({
@@ -29,6 +30,21 @@ export const createUser = async (req, res) => {
       password: hashedPass,
       role,
     });
+
+    // Customize the email message
+    const emailTemplate = {
+      emailTo: email,
+      subject: "Welcome to Blissful Smoothies!",
+      message: `<h1> Dear ${fullName}, </h1> 
+                 <p> Welcome to Blissful Smoothies! We're excited to have you on board.</p>
+                 <p> Thank you for creating an account with us.</p>
+                 <p> Best regards,</p>
+                 <p> Kwizera Emmanuel</p>
+                 <p> Blissful Smoothies CEO, Keller </p>`,
+    };
+
+    // Send the customized email
+    sendMail(emailTemplate);
 
     return res.status(201).json({
       message: "User Created Successfully",
