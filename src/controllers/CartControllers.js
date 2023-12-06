@@ -79,7 +79,7 @@ export const getCart = async (req, res) => {
         cartOwner: User._id,
       })
       .populate("cartOwner", "fullName email")
-      .populate("productId", "title image price");
+      .populate("productId", "title Subtitle image price");
 
     return res.status(200).json({
       status: "200",
