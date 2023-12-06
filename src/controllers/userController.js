@@ -100,7 +100,7 @@ export const delUser = async (req, res) => {
 // Update user
 export const upuser = async (req, res) => {
   const { id } = req.params;
-  const { fullName, email, userProfile, gender, password, role } = req.body;
+  const { fullName, email, gender, password, role } = req.body;
   try {
     const getId = await User.findById(id);
     if (!getId) {
