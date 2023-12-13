@@ -125,17 +125,6 @@ export const updateevent = async (req, res) => {
         message: "event Id Not Found",
       });
     }
-    const existingTitle = await event.findOne({
-      title: req.body.title,
-    });
-
-    if (existingTitle) {
-      return res.status(403).json({
-        status: "403",
-        message: "Title Already Exist Try Again",
-      });
-    }
-
     let result;
     if (req.file) result = await uploadToCloud(req.file, res);
     await event.findByIdAndUpdate(id, {
