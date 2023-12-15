@@ -38,7 +38,7 @@ blogRoutes.put(
 blogRoutes.put(
   "/update/:id",
   Authorization,
-  fileUpload.single("files"),
+  fileUpload.single("image"),
   updatePost
 );
 blogRoutes.get("/read", getBlog);
