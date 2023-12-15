@@ -141,8 +141,7 @@ export const deletePost = async (req, res) => {
 // update Blog
 export const updatePost = async (req, res) => {
   try {
-    const { author, image, title, category, ingridents, content, comments } =
-      req.body;
+    const { title, category, ingridents, content, comments } = req.body;
     const { User } = req;
     const { id } = req.params;
     const finDId = await blog.findById(id);
