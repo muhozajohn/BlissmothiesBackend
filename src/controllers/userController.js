@@ -75,6 +75,28 @@ export const getUsers = async (req, res) => {
   }
 };
 
+export const getOneUsers = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = await User.findById(id);
+    if (!userId) {
+      return res.status(404).json({
+        status: "404",
+        message: "User Not Found",
+      });
+    }
+    return res.status(200).json({
+      message: "All users Data Revieved",
+      data: userId,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Failed To retrieve All Data",
+      error: error.message,
+    });
+  }
+};
+
 // delte Single users
 
 export const delUser = async (req, res) => {
