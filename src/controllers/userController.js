@@ -139,14 +139,14 @@ export const login = async (req, res) => {
       email: req.body.email,
     });
     if (!userLogin) {
-      return res.status(404).json({
+      return res.status(422).json({
         message: "User not found",
       });
     }
 
     const isMatch = await bcrypt.compare(req.body.password, userLogin.password);
     if (!isMatch) {
-      return res.status(404).json({
+      return res.status(401).json({
         message: "Password incorect",
       });
     }
