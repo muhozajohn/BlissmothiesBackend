@@ -29,6 +29,10 @@ const menuSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    ownerP: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );
