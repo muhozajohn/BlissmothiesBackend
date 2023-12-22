@@ -29,6 +29,7 @@ export const makemenu = async (req, res) => {
       price,
       category,
       owner: req.User.fullName,
+      ownerP: req.User.userProfile,
     });
 
     return res.status(200).json({
@@ -138,6 +139,7 @@ export const updateMenu = async (req, res) => {
       price,
       category,
       owner: req.User.fullName,
+      ownerP: req.User.userProfile,
     });
 
     return res.status(201).json({
